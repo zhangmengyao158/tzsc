@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.tzsc.mapper.UserMapper">
+
+	<!-- 登录 -->
+	<select id="findUser" parameterType="User" resultType="User">
+		select * from t_users where username = #{username} and upassword = #{upassword}
+	</select>
+	
+	<!-- 注册 -->
+	<insert id="RegisterUser" parameterType="User" >
+		insert into t_users values(seq_t_users.nextval,#{username},#{upassword},null,null,#{uphone},null,null,null,null,null,null)
+	</insert>
+	
+	<!-- 基本资料 -->
+	<select id="DetalUser" resultType="User">
+		select * from t_users where username = #{username}
+	</select>
+	
+	<!-- 保存 -->
+	<update id="updateUser" parameterType="User" flushCache="false">
+		update t_users set uphone=#{uphone},uname=#{uname},usex=#{usex},
+		uqq=#{uqq},uemail=#{uemail},uaddress=#{uaddress},udescribe=#{udescribe}
+		<if test="ulogo != null">,ulogo=#{ulogo} </if> 
+		where username = #{username}
+	</update>
+	
+	<!-- 修改密码 -->
+	<update id="updatePwd" parameterType="User" flushCache="false">
+		update t_users set upassword=#{upassword} where username = #{username}
+	</update>
+</mapper>
+

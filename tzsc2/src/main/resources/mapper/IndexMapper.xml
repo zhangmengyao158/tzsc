@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.tzsc.mapper.IndexMapper">
+	<select id="listMenu" resultType="MinType" parameterType="int">
+		select * from t_mintype where tid = #{menu}
+	</select>
+	
+	<select id="listMenu1" resultType="MinType" parameterType="int">
+		select * from t_mintype 
+	</select>
+	
+	<select id="listMinMenu" resultType="SMixType" parameterType="int">
+		select * from t_smin where mid = #{menu1}
+	</select>
+	
+	<select id="newShop" resultType="Commodity">
+		select * from (select * from t_commodity order by cdate DESC) where rownum &lt; 9
+	</select>
+	
+	<select id="hotShop" resultType="Commodity">
+		select * from t_commodity inner join (select * from t_num order by nnum DESC) t_num on t_commodity.cid = t_num.cid where rownum &lt; 9
+	</select>
+	
+</mapper>
+
